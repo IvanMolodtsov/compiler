@@ -4,13 +4,13 @@
 ptr* smalloc(size_t size) {
     void* mem = malloc(size);
     if (mem == NULL) {
-        return;
+        return NULL;
     }
 
     ptr* pointer = malloc(sizeof(ptr));
     if (pointer == NULL) {
         free(mem);
-        return;
+        return NULL;
     }
 
     pointer->to = mem;
