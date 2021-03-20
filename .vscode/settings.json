@@ -1,8 +1,0 @@
-{
-    "files.associations": {
-        "string.h": "c",
-        "sdbm.h": "c",
-        "hashmap.h": "c",
-        "object.h": "c"
-    }
-}
