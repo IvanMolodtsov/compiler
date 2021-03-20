@@ -1,7 +1,11 @@
 #include "include/ptr.h"
 
+void destroy(ptr* pointer) {
+    free(pointer->to);
+    free(pointer);
+}
 
-ptr* smalloc(size_t size) {
+ptr* smalloc(size_t size, void (* destructor)(ptr*)) {
     void* mem = malloc(size);
     if (mem == NULL) {
         return NULL;
@@ -13,12 +17,18 @@ ptr* smalloc(size_t size) {
         return NULL;
     }
 
+    if (destructor == NULL) {
+        pointer->destructor = &destroy;
+    }  else {
+        pointer->destructor = destructor;
+    }
+
     pointer->to = mem;
     pointer->size = size;
+    
     return pointer;
 }
 
 void del(ptr* pointer) {
-    free(pointer->to);
-    free(pointer);
+    pointer->destructor(pointer);
 }

@@ -2,7 +2,7 @@
 #include "include/object.h"
 
 void main() {
-    ptr* a = smalloc(sizeof(int));
+    ptr* a = smalloc(sizeof(int), NULL);
     int val = 5;
     int* p = a->to;
     *p = val;
