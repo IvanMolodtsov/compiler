@@ -14,4 +14,10 @@ void main() {
 
     ptr* b = get(o, "key1");
     printf("%i\n",b->size);
+
+    del(o);
+    printf("%i\n",o->size);
+    ptr* c = get(o, "key1");
+    printf("end");
+
 }

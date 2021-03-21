@@ -1,10 +1,33 @@
 #include "include/object.h"
 #include "include/SDBM.h"
+#include "stdlib.h"
 
 size_t hash(char* key, size_t size) {
     size_t len = strlen(key);
     unsigned int hash = SDBMHash(key, len);
     return hash % size;
+}
+
+void destroy_obj(ptr* pointer) {
+
+    obj* o =(obj*) pointer->to;
+    
+    char * k;
+    for (int i =0; i<o->size ; ++i) {
+        field* f = o->fields[i];
+        field* next;
+        while (f != NULL) {
+            free(f->key);
+            k = f->key;
+            next = f->next;
+            del(f->data);
+            free(f);
+            f=next;
+        }
+    }
+    printf("%s\n", k);
+    free(o->fields);
+    free(o);
 }
 
 obj* object(size_t size) {
@@ -20,6 +43,8 @@ obj* object(size_t size) {
         return NULL;
     }
 
+    newObject->self = *(smalloc(sizeof(obj),&destroy_obj));
+    newObject->self.to = newObject;
     newObject->fields = fields;
     newObject->size = size;
 }

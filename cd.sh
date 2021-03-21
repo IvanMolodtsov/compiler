@@ -1,0 +1,1 @@
+cd /mnt/c/Users/vanmo/Desktop/compiler

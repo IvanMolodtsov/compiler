@@ -18,6 +18,7 @@ field* newField(char* key,ptr* data );
 
 typedef struct Object
 {
+    ptr self;
     size_t size;
     field** fields;
 } obj;
