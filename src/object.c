@@ -36,15 +36,15 @@ obj* object(size_t size) {
         return NULL;
     }
 
-    obj* newObject = malloc(sizeof(obj));
+    ptr * pointer = smalloc(sizeof(obj),&destroy_obj);
+    obj* newObject = pointer->to;
 
     if (newObject == NULL) {
         free(fields);
         return NULL;
     }
 
-    newObject->self = *(smalloc(sizeof(obj),&destroy_obj));
-    newObject->self.to = newObject;
+    newObject->self = *pointer;
     newObject->fields = fields;
     newObject->size = size;
 }

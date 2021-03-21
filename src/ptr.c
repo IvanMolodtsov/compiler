@@ -30,5 +30,7 @@ ptr* smalloc(size_t size, void (* destructor)(ptr*)) {
 }
 
 void del(ptr* pointer) {
-    pointer->destructor(pointer);
+    if (pointer != NULL) {
+        pointer->destructor(pointer);
+    }
 }
