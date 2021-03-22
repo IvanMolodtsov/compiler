@@ -1,0 +1,12 @@
+scope1:
+
+object o {
+    name: string
+    age: int
+}
+
+fun fname(obj: o) => {
+    return obj.name
+}
+
+end

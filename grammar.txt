@@ -1,0 +1,10 @@
+S -> <scope>;
+<scope> -> "scopeName": <code> end
+<code> -> <object-st>
+<code> -> <fuction-st>
+
+<object-st> -> object "objectName" { <fields> }
+<fields> -> "fieldName": <type> <fields>
+<fields> -> \$
+
+<fuction-st> -> fun "functionName"(<agrguments>) { <code>}
