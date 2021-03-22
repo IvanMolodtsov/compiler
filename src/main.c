@@ -14,6 +14,7 @@ ptr* function(ptr** args) {
 }
  
 void main() {
+    
     init_ioc();
 
     register_dependency("key", &function);
