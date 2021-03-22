@@ -30,22 +30,31 @@ void destroy_obj(ptr* pointer) {
 }
 
 object* new_object(size_t size) {
-    field** fields = new_array(size);
+
+    size_t s;
+
+    if (size == NULL) {
+        s = default_size;
+    } else {
+        s = size;
+    }
+
+    field** fields = new_array(s);
     if (fields == NULL) {
         return NULL;
     }
 
     ptr * pointer = smalloc(sizeof(object),&destroy_obj);
-    object* newObject = pointer->to;
-
-    if (newObject == NULL) {
+    
+    if (pointer == NULL) {
         del(fields);
         return NULL;
     }
-
+    
+    object* newObject = pointer->to;
     newObject->self = *pointer;
     newObject->fields = fields;
-    newObject->size = size;
+    newObject->size = s;
 }
 
 field* new_field(char* key,ptr* data ) {

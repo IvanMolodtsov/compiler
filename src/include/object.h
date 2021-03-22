@@ -6,6 +6,8 @@
 
 size_t hash(char* key, size_t size);
 
+#define default_size 7919;
+
 typedef struct Field
 {
     ptr self;
