@@ -1,4 +1,6 @@
 #include "include/array.h"
+#include "stdlib.h"
+#include "string.h"
 
 void destroy_array(ptr* pointer) {
     array* arr =(array*) pointer->to;
@@ -9,11 +11,20 @@ void destroy_array(ptr* pointer) {
     free(arr);
 }
 
-array* newArray(size_t size) {
+array* new_array(size_t size) {
     ptr* pointer = smalloc(sizeof(array), &destroy_array);
     array* arr = pointer->to;
     arr->self = *pointer;
     arr->body = calloc(size, sizeof(ptr*));
     arr->length = size;
     return arr;
+}
+
+ptr* arr_get(array* arr,size_t i) {
+    return arr->body[i];
+}
+
+void arr_set(array* arr,size_t i, ptr* value) {
+    del(arr->body[i]);
+    arr->body[i] = value;
 }

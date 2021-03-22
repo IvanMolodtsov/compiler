@@ -1,6 +1,7 @@
 #include "include/object.h"
 #include "include/SDBM.h"
 #include "stdlib.h"
+#include "string.h"
 
 size_t hash(char* key, size_t size) {
     size_t len = strlen(key);
@@ -8,39 +9,37 @@ size_t hash(char* key, size_t size) {
     return hash % size;
 }
 
+void destroy_field(ptr* pointer) {
+    field* next;
+    field* f =(field*) pointer->to;
+    while (f != NULL) {
+        next = f->next;
+        free(f->key);
+        del(f->data);
+        free(f);
+        f=next;
+    }
+}
+
 void destroy_obj(ptr* pointer) {
 
-    obj* o =(obj*) pointer->to;
+    object* o =(object*) pointer->to;
     
-    char * k;
-    for (int i =0; i<o->size ; ++i) {
-        field* f = o->fields[i];
-        field* next;
-        while (f != NULL) {
-            free(f->key);
-            k = f->key;
-            next = f->next;
-            del(f->data);
-            free(f);
-            f=next;
-        }
-    }
-    printf("%s\n", k);
-    free(o->fields);
+    del (o->fields);
     free(o);
 }
 
-obj* object(size_t size) {
-    field** fields = calloc(size, sizeof(field*));
+object* new_object(size_t size) {
+    field** fields = new_array(size);
     if (fields == NULL) {
         return NULL;
     }
 
-    ptr * pointer = smalloc(sizeof(obj),&destroy_obj);
-    obj* newObject = pointer->to;
+    ptr * pointer = smalloc(sizeof(object),&destroy_obj);
+    object* newObject = pointer->to;
 
     if (newObject == NULL) {
-        free(fields);
+        del(fields);
         return NULL;
     }
 
@@ -49,11 +48,13 @@ obj* object(size_t size) {
     newObject->size = size;
 }
 
-field* newField(char* key,ptr* data ) {
-    field* f = malloc(sizeof(field));
-    if (f == NULL) {
+field* new_field(char* key,ptr* data ) {
+    ptr* p = smalloc(sizeof(field), &destroy_field);
+    if (p == NULL) {
         return NULL;
     }
+    field* f = p->to;
+    f->self = *p;
     f->key = malloc(strlen(key)+1);
     strcpy( f->key,key);
 
@@ -62,9 +63,9 @@ field* newField(char* key,ptr* data ) {
     return f;
 }
 
-ptr* get(obj* table, char* key) {
+ptr* get(object* table, char* key) {
     size_t i = hash(key, table->size);
-    field* val = table->fields[i];
+    field* val = arr_get(table->fields, i);
     if (val == NULL) {
         return NULL;
     }
@@ -80,11 +81,11 @@ ptr* get(obj* table, char* key) {
     
 }
 
-void set(obj* table, char* key, ptr* value) {
+void set(object* table, char* key, ptr* value) {
     size_t i = hash(key, table->size);
-    field* val = table->fields[i];
+    field* val = arr_get(table->fields, i);
     if (val == NULL) {
-        table->fields[i] = newField(key, value);
+        arr_set(table->fields, i, new_field(key, value));
         return;
     }
 
@@ -99,5 +100,5 @@ void set(obj* table, char* key, ptr* value) {
         val = prev->next;
     }
 
-    prev->next = newField(key, value);
+    prev->next = new_field(key, value);
 }

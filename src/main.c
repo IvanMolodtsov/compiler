@@ -4,11 +4,10 @@
 void main() {
     ptr* a = smalloc(sizeof(int), NULL);
     int val = 5;
-    int* p = a->to;
-    *p = val;
+    ptr_set(a, &val);
     printf("%i\n",a->size);
-
-    obj* o = object(10);
+    printf("%i\n",*((int *)a->to));
+    object* o = new_object(10);
 
     set(o,"key1", a);
 

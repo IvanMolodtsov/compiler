@@ -10,8 +10,8 @@ typedef struct Array
     size_t length;
 } array;
 
-array* newArray(size_t size);
-ptr* get(array* arr,size_t i);
-void set(array* arr,size_t i, ptr* value);
+array* new_array(size_t size);
+ptr* arr_get(array* arr,size_t i);
+void arr_set(array* arr,size_t i, ptr* value);
 
 #endif

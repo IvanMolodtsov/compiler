@@ -1,4 +1,6 @@
 #include "include/ptr.h"
+#include "stdlib.h"
+#include "string.h"
 
 void destroy(ptr* pointer) {
     free(pointer->to);
@@ -27,6 +29,10 @@ ptr* smalloc(size_t size, void (* destructor)(ptr*)) {
     pointer->size = size;
     
     return pointer;
+}
+
+void ptr_set(ptr* pointer, void* value) {
+    memcpy(pointer->to, value, pointer->size);
 }
 
 void del(ptr* pointer) {
