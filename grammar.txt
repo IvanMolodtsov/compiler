@@ -8,3 +8,4 @@ S -> <scope>;
 <fields> -> \$
 
 <fuction-st> -> fun "functionName"(<agrguments>) { <code>}
+<agrguments> -> 
