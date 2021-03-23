@@ -1,7 +1,9 @@
 #include "include/ptr.h"
 #include "include/ioc.h"
 #include "include/test.h"
+#include "include/readFile.h"
 #include <stdlib.h>
+#include "errno.h"
 #include <stdio.h>
 ptr* function(ptr** args) {
     int* a = args[0]->to;
@@ -15,22 +17,36 @@ ptr* function(ptr** args) {
  
 void main() {
     
-    init_ioc();
+    // init_ioc();
 
-    register_dependency("key", &function);
+    // register_dependency("key", &function);
     
-    int a = 5;
-    ptr* p1 = smalloc(sizeof(int), NULL);
-    p1->to = &a;
-    int b = 2;
-    ptr* p2 = smalloc(sizeof(int), NULL);
-    p2->to = &b;
+    // int a = 5;
+    // ptr* p1 = smalloc(sizeof(int), NULL);
+    // p1->to = &a;
+    // int b = 2;
+    // ptr* p2 = smalloc(sizeof(int), NULL);
+    // p2->to = &b;
 
-    ptr* args[2];
-    args[0] = p1;
-    args[1] = p2;
+    // ptr* args[2];
+    // args[0] = p1;
+    // args[1] = p2;
 
-    ptr* p3 = resolve("key", args);
-    int* c = p3->to;
-    printf("%i", *c);
+    // ptr* p3 = resolve("key", args);
+    // int* c = p3->to;
+    // printf("%i", *c);
+
+    file* f = openFile("./example.txt");
+    printf("Error %d\n", errno);
+    char c = next(f);
+    printf("%c \n", c);
+    c = next(f);
+    printf("%c", c);
+    c = next(f);
+    printf("%c", c);
+    c = next(f);
+    printf("%c", c);
+
+
+
 }

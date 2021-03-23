@@ -15,5 +15,4 @@ token* nextToken(lexer* l);
 
 void next(lexer* l);
 
-
 #endif

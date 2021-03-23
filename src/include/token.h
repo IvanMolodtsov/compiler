@@ -3,7 +3,7 @@
 
 typedef struct Token
 {
-    
+    char* type;
 } token;
 
 
