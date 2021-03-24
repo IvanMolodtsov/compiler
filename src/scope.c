@@ -16,7 +16,7 @@ scope* new_scope(scope* parent) {
     return s;
 }
 
-dependency* get_dependency(scope* s, char * key) {
+dependency* get_dependency(scope* s, str * key) {
     scope* current = s;
     while (current != NULL) {
         ptr* p = get( current->dictionary, key);
@@ -28,6 +28,6 @@ dependency* get_dependency(scope* s, char * key) {
     return NULL;
 }
 
-void set_dependency(scope* s, char * key, dependency* d) {
+void set_dependency(scope* s, str * key, dependency* d) {
     set(s->dictionary, key, d);
 }

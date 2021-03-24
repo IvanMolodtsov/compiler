@@ -1,9 +1,13 @@
 #ifndef TOKEN_H
 #define TOKEN_H
 
+#include "ptr.h"
+#include "str.h"
+
 typedef struct Token
 {
-    char* type;
+    ptr* self;
+    str* name;
 } token;
 
 

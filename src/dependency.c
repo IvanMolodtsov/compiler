@@ -7,7 +7,7 @@ void destruct_dependency(ptr* pointer) {
     free(d);
 }
 
-dependency* new_dependency(ptr* (*invoke)(ptr**)) {
+dependency* new_dependency(ptr* (*invoke)(array*)) {
     ptr* pointer = smalloc(sizeof(dependency), &destruct_dependency);
     dependency* d = pointer->to;
     d->self = *pointer;

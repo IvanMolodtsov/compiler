@@ -4,6 +4,8 @@
 #include "ptr.h"
 #include "dependency.h"
 #include "scope.h"
+#include "str.h"
+#include "array.h"
 
 
 typedef struct ioc_container
@@ -15,8 +17,8 @@ ioc IOC;
 
 void init_ioc();
 
-void register_dependency(char* key, ptr* (*invoke)(ptr**));
-ptr* resolve(char* key, ptr** params);
+void register_dependency(str* key, ptr* (*invoke)(ptr**));
+ptr* resolve(str* key, array* params);
 
 
 #endif

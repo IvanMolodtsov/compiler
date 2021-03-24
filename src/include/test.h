@@ -2,7 +2,8 @@
 #define TEST_H
 
 #include "ptr.h"
+#include "array.h"
 
-ptr* function(ptr** args);
+ptr* function(array* args);
 
 #endif

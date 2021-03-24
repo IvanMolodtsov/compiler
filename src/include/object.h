@@ -3,8 +3,9 @@
 
 #include "ptr.h"
 #include "array.h"
+#include "str.h"
 
-size_t hash(char* key, size_t size);
+size_t hash(str* key, size_t size);
 
 #define default_size 7919;
 
@@ -12,11 +13,11 @@ typedef struct Field
 {
     ptr self;
     ptr* data;
-    char* key;
+    str* key;
     struct Field* next;
 } field;
 
-field* new_field(char* key,ptr* data );
+field* new_field(str* key,ptr* data );
 
 typedef struct Object
 {
@@ -27,7 +28,7 @@ typedef struct Object
 
 object* new_object(size_t size);
 
-ptr* get(object* table, char* key);
-void set(object* table, char* key, ptr* value);
+ptr* get(object* table, str* key);
+void set(object* table, str* key, ptr* value);
 
 #endif

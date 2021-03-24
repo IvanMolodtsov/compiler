@@ -4,6 +4,7 @@
 #include "ptr.h"
 #include "dependency.h"
 #include "object.h"
+#include "str.h"
 
 typedef struct Scope {
     ptr self;
@@ -13,7 +14,7 @@ typedef struct Scope {
 
 scope* new_scope(scope* parent);
 
-dependency* get_dependency(scope* s, char * key);
-void set_dependency(scope* s, char * key, dependency* d);
+dependency* get_dependency(scope* s, str * key);
+void set_dependency(scope* s, str * key, dependency* d);
 
 #endif

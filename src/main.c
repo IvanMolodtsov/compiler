@@ -5,9 +5,10 @@
 #include <stdlib.h>
 #include "errno.h"
 #include <stdio.h>
-ptr* function(ptr** args) {
-    int* a = args[0]->to;
-    int* b = args[1]->to;
+
+ptr* function(array* args) {
+    int* a = arr_get(args, 0)->to;
+    int* b = arr_get(args, 1)->to;
 
     int c = *a + *b;
     ptr* p = smalloc(sizeof(int), NULL);
@@ -17,35 +18,37 @@ ptr* function(ptr** args) {
  
 void main() {
     
-    // init_ioc();
+    init_ioc();
 
-    // register_dependency("key", &function);
+
+
+    register_dependency(new_str("key"), &function);
     
-    // int a = 5;
-    // ptr* p1 = smalloc(sizeof(int), NULL);
-    // p1->to = &a;
-    // int b = 2;
-    // ptr* p2 = smalloc(sizeof(int), NULL);
-    // p2->to = &b;
+    int a = 5;
+    ptr* p1 = smalloc(sizeof(int), NULL);
+    p1->to = &a;
+    int b = 2;
+    ptr* p2 = smalloc(sizeof(int), NULL);
+    p2->to = &b;
 
-    // ptr* args[2];
-    // args[0] = p1;
-    // args[1] = p2;
+    array* args = new_array(2);
+    arr_set(args, 0,p1);
+    arr_set(args, 1,p2);
 
-    // ptr* p3 = resolve("key", args);
-    // int* c = p3->to;
-    // printf("%i", *c);
+    ptr* p3 = resolve(new_str("key"), args);
+    int* c = p3->to;
+    printf("%i", *c);
 
-    file* f = openFile("./example.txt");
-    printf("Error %d\n", errno);
-    char c = next(f);
-    printf("%c \n", c);
-    c = next(f);
-    printf("%c", c);
-    c = next(f);
-    printf("%c", c);
-    c = next(f);
-    printf("%c", c);
+    // file* f = openFile("./example.txt");
+    // printf("Error %d\n", errno);
+    // char c = next(f);
+    // printf("%c \n", c);
+    // c = next(f);
+    // printf("%c", c);
+    // c = next(f);
+    // printf("%c", c);
+    // c = next(f);
+    // printf("%c", c);
 
 
 

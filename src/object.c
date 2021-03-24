@@ -3,9 +3,8 @@
 #include "stdlib.h"
 #include "string.h"
 
-size_t hash(char* key, size_t size) {
-    size_t len = strlen(key);
-    unsigned int hash = SDBMHash(key, len);
+size_t hash(str* key, size_t size) {
+    unsigned int hash = SDBMHash(key->value, key->length);
     return hash % size;
 }
 
@@ -14,7 +13,7 @@ void destroy_field(ptr* pointer) {
     field* f =(field*) pointer->to;
     while (f != NULL) {
         next = f->next;
-        free(f->key);
+        del(f->key);
         del(f->data);
         free(f);
         f=next;
@@ -57,22 +56,21 @@ object* new_object(size_t size) {
     newObject->size = s;
 }
 
-field* new_field(char* key,ptr* data ) {
+field* new_field(str* key,ptr* data ) {
     ptr* p = smalloc(sizeof(field), &destroy_field);
     if (p == NULL) {
         return NULL;
     }
     field* f = p->to;
     f->self = *p;
-    f->key = malloc(strlen(key)+1);
-    strcpy( f->key,key);
+    f->key = key;
 
     f->data = data;
     f->next = NULL;
     return f;
 }
 
-ptr* get(object* table, char* key) {
+ptr* get(object* table, str* key) {
     size_t i = hash(key, table->size);
     field* val = arr_get(table->fields, i);
     if (val == NULL) {
@@ -80,7 +78,7 @@ ptr* get(object* table, char* key) {
     }
 
     while(val != NULL) {
-        if (strcmp(val->key, key) == 0) {
+        if (compare_str(val->key, key)) {
             return val->data;
         }
         val = val->next;
@@ -90,7 +88,7 @@ ptr* get(object* table, char* key) {
     
 }
 
-void set(object* table, char* key, ptr* value) {
+void set(object* table, str* key, ptr* value) {
     size_t i = hash(key, table->size);
     field* val = arr_get(table->fields, i);
     if (val == NULL) {
@@ -101,7 +99,7 @@ void set(object* table, char* key, ptr* value) {
     field* prev;
 
     while(val != NULL) {
-        if (strcmp(val->key, key) == 0) {
+        if (compare_str(val->key, key)) {
             val->data = value;
             return;
         }

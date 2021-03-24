@@ -4,7 +4,7 @@ void init_ioc() {
     IOC.current = new_scope(NULL);
 }
 
-ptr* resolve(char* key, ptr** params) {
+ptr* resolve(str* key, array* params) {
     dependency* d;
     d = get_dependency(IOC.current, key);
     if (d == NULL) {
@@ -15,7 +15,7 @@ ptr* resolve(char* key, ptr** params) {
     return ret;
 }
 
-void register_dependency(char* key, ptr* (*invoke)(ptr**)) {
+void register_dependency(str* key, ptr* (*invoke)(ptr**)) {
     dependency* d = new_dependency(invoke);
     set_dependency(IOC.current, key, d);
 }

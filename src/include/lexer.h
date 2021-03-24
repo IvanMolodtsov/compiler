@@ -2,17 +2,19 @@
 #define LEXER_H
 #include "token.h"
 #include "stddef.h"
+#include "readFile.h"
 
 typedef struct Lexer
 {
+    ptr self;
     size_t index;
-    char* file;
+    file* src;
     char current;
 
 } lexer;
 
-token* nextToken(lexer* l);
+lexer* new_lexer(file* src);
 
-void next(lexer* l);
+token* nextToken(lexer* l);
 
 #endif
