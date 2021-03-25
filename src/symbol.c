@@ -1,4 +1,5 @@
 #include "include/types/symbol.h"
+#include <stdlib.h>
 
 void destroy_symbol(ptr* pointer) {
     symbol* s = pointer->to;

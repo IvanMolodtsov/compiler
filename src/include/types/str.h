@@ -14,4 +14,6 @@ str* new_str(char* value);
 
 bool compare_str(str* one, str* other);
 
+char* toCString(str*);
+
 #endif

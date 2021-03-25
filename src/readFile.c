@@ -1,4 +1,5 @@
 #include "include/readFile.h"
+#include <stdlib.h>
 
 void destroyFile(ptr* p) {
     file* f= p->to;
