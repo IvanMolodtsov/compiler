@@ -2,7 +2,7 @@
 #define READ_FILE_H
 
 #include "stdio.h"
-#include "ptr.h"
+#include "types/ptr.h"
 
 typedef struct File {
     ptr self;

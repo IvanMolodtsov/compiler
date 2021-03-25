@@ -1,10 +1,10 @@
 #ifndef SCOPE_H 
 #define SCOPE_H
 
-#include "ptr.h"
+#include "types/ptr.h"
 #include "dependency.h"
-#include "object.h"
-#include "str.h"
+#include "types/object.h"
+#include "types/str.h"
 
 typedef struct Scope {
     ptr self;

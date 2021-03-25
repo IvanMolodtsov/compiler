@@ -1,12 +1,12 @@
 #ifndef STR_H
 #define STR_H
 
-#include "ptr.h"
-#include "stdbool.h"
+#include "symbol.h"
+#include "array.h"
 
 typedef struct String {
     ptr self;
-    char* value; 
+    array* value; 
     size_t length;
 } str;
 

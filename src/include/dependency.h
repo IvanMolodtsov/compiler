@@ -1,8 +1,8 @@
 #ifndef DEPENDENCY_H
 #define DEPENDENCY_H
 
-#include "ptr.h"
-#include "array.h"
+#include "types/ptr.h"
+#include "types/array.h"
 
 typedef struct Dependency
 {

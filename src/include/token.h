@@ -1,8 +1,8 @@
 #ifndef TOKEN_H
 #define TOKEN_H
 
-#include "ptr.h"
-#include "str.h"
+#include "types/ptr.h"
+#include "types/str.h"
 
 typedef struct Token
 {

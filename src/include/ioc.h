@@ -1,11 +1,11 @@
 #ifndef IOC_H
 #define IOC_H
 
-#include "ptr.h"
+#include "types/ptr.h"
 #include "dependency.h"
 #include "scope.h"
-#include "str.h"
-#include "array.h"
+#include "types/str.h"
+#include "types/array.h"
 
 
 typedef struct ioc_container

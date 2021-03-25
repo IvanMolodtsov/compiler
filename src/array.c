@@ -1,6 +1,5 @@
-#include "include/array.h"
+#include "include/types/array.h"
 #include "stdlib.h"
-#include "string.h"
 
 void destroy_array(ptr* pointer) {
     array* arr =(array*) pointer->to;

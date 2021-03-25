@@ -1,8 +1,8 @@
 #ifndef TEST_H
 #define TEST_H
 
-#include "ptr.h"
-#include "array.h"
+#include "types/ptr.h"
+#include "types/array.h"
 
 ptr* function(array* args);
 

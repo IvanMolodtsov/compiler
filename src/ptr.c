@@ -1,4 +1,4 @@
-#include "include/ptr.h"
+#include "include/types/ptr.h"
 #include "stdlib.h"
 #include "string.h"
 
