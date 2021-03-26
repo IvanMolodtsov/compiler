@@ -1,17 +1,17 @@
 #ifndef DEPENDENCY_H
 #define DEPENDENCY_H
 
-#include "types/ptr.h"
+#include "types/any.h"
 #include "types/array.h"
 
 typedef struct Dependency
 {
-    ptr self;
+    any self;
 
-    ptr* (*invoke)(array*);
+    any* (*invoke)(array*);
 } dependency;
 
-dependency* new_dependency(ptr* (*invoke)(array*));
+dependency* new_dependency(any* (*invoke)(array*));
 
 
 #endif

@@ -1,10 +1,10 @@
 #ifndef IOC_H
 #define IOC_H
 
-#include "types/ptr.h"
+#include "types/any.h"
 #include "dependency.h"
 #include "scope.h"
-#include "types/str.h"
+#include "types/string.h"
 #include "types/array.h"
 
 
@@ -17,8 +17,8 @@ ioc IOC;
 
 void init_ioc();
 
-void register_dependency(str* key, ptr* (*invoke)(ptr**));
-ptr* resolve(str* key, array* params);
+void register_dependency(string* key, any* (*invoke)(any**));
+any* resolve(string* key, array* params);
 
 
 #endif

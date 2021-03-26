@@ -1,8 +1,8 @@
 #ifndef SDBM_H 
 #define SDBM_H
 
-#include "types/str.h"
+#include "types/string.h"
 
-unsigned int SDBMHash(str* string, unsigned int length);
+unsigned int SDBMHash(string* stringing, unsigned int length);
 
 #endif

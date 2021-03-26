@@ -1,12 +1,12 @@
 #ifndef SYMBOL_H
 #define SYMBOL_H
 
-#include "ptr.h"
+#include "any.h"
 #include "stdbool.h"
 
 typedef struct Symbol
 {
-    ptr self;
+    any self;
     char symbol;
 } symbol;
 

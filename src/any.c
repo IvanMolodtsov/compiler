@@ -1,41 +1,34 @@
-#include "include/types/ptr.h"
+#include "include/types/any.h"
 #include "stdlib.h"
-#include "string.h"
 
-void destroy(ptr* pointer) {
+void destory(any* pointer) {
     free(pointer->to);
     free(pointer);
 }
 
-ptr* smalloc(size_t size, void (* destructor)(ptr*)) {
+any* smalloc(size_t size, void (* destructor)(any*)) {
     void* mem = malloc(size);
     if (mem == NULL) {
         return NULL;
     }
 
-    ptr* pointer = malloc(sizeof(ptr));
+    any* pointer = malloc(sizeof(any));
     if (pointer == NULL) {
         free(mem);
         return NULL;
     }
 
     if (destructor == NULL) {
-        pointer->destructor = &destroy;
+        pointer->destructor = &destory;
     }  else {
         pointer->destructor = destructor;
     }
 
     pointer->to = mem;
-    pointer->size = size;
-    
     return pointer;
 }
 
-void ptr_set(ptr* pointer, void* value) {
-    memcpy(pointer->to, value, pointer->size);
-}
-
-void del(ptr* pointer) {
+void del(any* pointer) {
     if (pointer != NULL) {
         pointer->destructor(pointer);
     }

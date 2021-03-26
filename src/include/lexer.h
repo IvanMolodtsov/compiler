@@ -6,7 +6,7 @@
 
 typedef struct Lexer
 {
-    ptr self;
+    any self;
     size_t index;
     file* src;
     char current;

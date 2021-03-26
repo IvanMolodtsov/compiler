@@ -1,13 +1,13 @@
 #include "include/lexer.h"
 
-void destroy_lexer(ptr* pointer) {
+void destory_lexer(any* pointer) {
     lexer* l =(lexer*) pointer;
     del(l->src);
     free(l); 
 }
 
 lexer* new_lexer(file* src) {
-    ptr* pointer = smalloc(sizeof(lexer),&destroy_lexer);
+    any* pointer = smalloc(sizeof(lexer),&destory_lexer);
     lexer* l = pointer->to;
     l->self = *pointer;
     l->src = src;

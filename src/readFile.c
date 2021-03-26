@@ -1,14 +1,14 @@
 #include "include/readFile.h"
 #include <stdlib.h>
 
-void destroyFile(ptr* p) {
+void destoryFile(any* p) {
     file* f= p->to;
     fclose(f->file_ref);
     free(f);
 }
 
 file* openFile(char* fileName) {
-    ptr* pointer = smalloc(sizeof(file), &destroyFile);
+    any* pointer = smalloc(sizeof(file), &destoryFile);
     file* f = pointer->to;
     f->self = *pointer;
     f->file_ref = fopen(fileName, "r");

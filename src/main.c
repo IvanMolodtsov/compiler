@@ -1,4 +1,4 @@
-#include "include/types/ptr.h"
+#include "include/types/any.h"
 #include "include/ioc.h"
 #include "include/test.h"
 #include "include/readFile.h"
@@ -6,12 +6,12 @@
 #include "errno.h"
 #include <stdio.h>
 
-ptr* function(array* args) {
+any* function(array* args) {
     int* a = arr_get(args, 0)->to;
     int* b = arr_get(args, 1)->to;
 
     int c = *a + *b;
-    ptr* p = smalloc(sizeof(int), NULL);
+    any* p = smalloc(sizeof(int), NULL);
     p->to = &c;
     return p;
 }
@@ -22,22 +22,22 @@ void main() {
 
 
 
-    register_dependency(new_str("key"), &function);
+    register_dependency(new_string("key"), &function);
     
     int a = 5;
-    ptr* p1 = smalloc(sizeof(int), NULL);
+    any* p1 = smalloc(sizeof(int), NULL);
     p1->to = &a;
     int b = 2;
-    ptr* p2 = smalloc(sizeof(int), NULL);
+    any* p2 = smalloc(sizeof(int), NULL);
     p2->to = &b;
 
     array* args = new_array(2);
     arr_set(args, 0,p1);
     arr_set(args, 1,p2);
 
-    ptr* p3 = resolve(new_str("key"), args);
+    any* p3 = resolve(new_string("key"), args);
     int* c = p3->to;
-    printf("%i", *c);
+    printf("res =\"%i\"; sloud be 7\n", *c);
 
     // file* f = openFile("./example.txt");
     // printf("Error %d\n", errno);
@@ -49,7 +49,5 @@ void main() {
     // printf("%c", c);
     // c = next(f);
     // printf("%c", c);
-
-
-
+    // del(args);
 }

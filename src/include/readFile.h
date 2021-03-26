@@ -2,10 +2,10 @@
 #define READ_FILE_H
 
 #include "stdio.h"
-#include "types/ptr.h"
+#include "types/any.h"
 
 typedef struct File {
-    ptr self;
+    any self;
     FILE* file_ref;
 } file;
 

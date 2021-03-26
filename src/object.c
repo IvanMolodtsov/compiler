@@ -1,14 +1,13 @@
 #include "include/types/object.h"
 #include "include/SDBM.h"
 #include "stdlib.h"
-#include "string.h"
 
-size_t hash(str* key, size_t size) {
+size_t hash(string* key, size_t size) {
     unsigned int hash = SDBMHash(key->value, key->length);
     return hash % size;
 }
 
-void destroy_field(ptr* pointer) {
+void destory_field(any* pointer) {
     field* next;
     field* f =(field*) pointer->to;
     while (f != NULL) {
@@ -20,7 +19,7 @@ void destroy_field(ptr* pointer) {
     }
 }
 
-void destroy_obj(ptr* pointer) {
+void destory_obj(any* pointer) {
 
     object* o =(object*) pointer->to;
     
@@ -43,7 +42,7 @@ object* new_object(size_t size) {
         return NULL;
     }
 
-    ptr * pointer = smalloc(sizeof(object),&destroy_obj);
+    any * pointer = smalloc(sizeof(object),&destory_obj);
     
     if (pointer == NULL) {
         del(fields);
@@ -56,8 +55,8 @@ object* new_object(size_t size) {
     newObject->size = s;
 }
 
-field* new_field(str* key,ptr* data ) {
-    ptr* p = smalloc(sizeof(field), &destroy_field);
+field* new_field(string* key,any* data ) {
+    any* p = smalloc(sizeof(field), &destory_field);
     if (p == NULL) {
         return NULL;
     }
@@ -70,7 +69,7 @@ field* new_field(str* key,ptr* data ) {
     return f;
 }
 
-ptr* get(object* table, str* key) {
+any* get(object* table, string* key) {
     size_t i = hash(key, table->size);
     field* val = arr_get(table->fields, i);
     if (val == NULL) {
@@ -78,7 +77,7 @@ ptr* get(object* table, str* key) {
     }
 
     while(val != NULL) {
-        if (compare_str(val->key, key)) {
+        if (compare_string(val->key, key)) {
             return val->data;
         }
         val = val->next;
@@ -88,7 +87,7 @@ ptr* get(object* table, str* key) {
     
 }
 
-void set(object* table, str* key, ptr* value) {
+void set(object* table, string* key, any* value) {
     size_t i = hash(key, table->size);
     field* val = arr_get(table->fields, i);
     if (val == NULL) {
@@ -99,7 +98,7 @@ void set(object* table, str* key, ptr* value) {
     field* prev;
 
     while(val != NULL) {
-        if (compare_str(val->key, key)) {
+        if (compare_string(val->key, key)) {
             val->data = value;
             return;
         }

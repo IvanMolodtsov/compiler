@@ -1,6 +1,6 @@
 #include "include/scope.h"
 
-void destroy_scope(ptr* pointer) {
+void destory_scope(any* pointer) {
     scope* s = (scope*)pointer;
 
     del(s->dictionary);
@@ -8,7 +8,7 @@ void destroy_scope(ptr* pointer) {
 }
 
 scope* new_scope(scope* parent) {
-    ptr* pointer = smalloc(sizeof(scope), &destroy_scope);
+    any* pointer = smalloc(sizeof(scope), &destory_scope);
     scope* s = pointer->to;
     s->self = *pointer;
     s->parent = parent;
@@ -16,10 +16,10 @@ scope* new_scope(scope* parent) {
     return s;
 }
 
-dependency* get_dependency(scope* s, str * key) {
+dependency* get_dependency(scope* s, string * key) {
     scope* current = s;
     while (current != NULL) {
-        ptr* p = get( current->dictionary, key);
+        any* p = get( current->dictionary, key);
         if (p!= NULL) {
             return (dependency*) p;
         }
@@ -28,6 +28,6 @@ dependency* get_dependency(scope* s, str * key) {
     return NULL;
 }
 
-void set_dependency(scope* s, str * key, dependency* d) {
+void set_dependency(scope* s, string * key, dependency* d) {
     set(s->dictionary, key, d);
 }
